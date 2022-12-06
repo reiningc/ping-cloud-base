@@ -17,3 +17,4 @@ resources:
 - namespace.yaml
 - serviceaccount.yaml
 - httpbin-pa-was.yaml
+- httpbin-pa.yaml
