@@ -46,7 +46,7 @@ class TestPingAccessHealth(TestHealthBase):
             "No 'responds to requests' checks found in health check results",
         )
     
-        def test_health_check_has_create_object_results(self):
+    def test_health_check_has_create_object_results(self):
         test_results = self.get_test_results(
             self.pingaccess, Categories.connectivity
         )
