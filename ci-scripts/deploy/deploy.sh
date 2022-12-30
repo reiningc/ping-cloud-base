@@ -26,6 +26,9 @@ set -x
 
 deploy_file=/tmp/deploy.yaml
 
+kubectl version
+aws-iam-authenticator version
+
 # Apply Custom Resource Definitions separate, due to size, if applicable
 apply_crds "${PROJECT_DIR}"
 
