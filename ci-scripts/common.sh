@@ -253,7 +253,7 @@ configure_kube() {
 
   kubectl config set-credentials aws \
     --exec-command aws-iam-authenticator \
-    --exec-api-version client.authentication.k8s.io/v1alpha1 \
+    --exec-api-version client.authentication.k8s.io/v1beta1\
     --exec-arg=token \
     --exec-arg=-i --exec-arg="${SELECTED_KUBE_NAME}" \
     --exec-arg=-r --exec-arg="${AWS_ACCOUNT_ROLE_ARN}"
