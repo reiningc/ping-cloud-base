@@ -244,6 +244,8 @@ configure_kube() {
   SELECTED_CA_PEM=$(eval "echo \"\$$ca_pem_var\"")
   SELECTED_KUBE_URL=$(eval "echo \"\$$kube_url_var\"")
 
+  kubectl config get-contexts
+
   log "Configuring KUBE"
   echo "${SELECTED_CA_PEM}" > "$(pwd)/kube.ca.pem"
 
@@ -263,6 +265,8 @@ configure_kube() {
     --user=aws
 
   kubectl config use-context "${SELECTED_KUBE_NAME}"
+
+  kubectl config get-contexts
 }
 
 ########################################################################################################################

@@ -661,6 +661,8 @@ apply_crds() {
   local base_dir=${1}
   local timeout="60"
 
+  kubectl config get-contexts
+  kubectl config view
   # First, we need to deploy cert-manager. This is due to it using Dynamic Admission Control - Mutating Webhooks which
   # must be available before we make use cert-manager
   kubectl apply -f "${base_dir}/k8s-configs/cluster-tools/base/cert-manager/base/cert-manager.yaml"
