@@ -670,7 +670,7 @@ apply_crds() {
   #wait_for_rollout "deployment/cert-manager-webhook" "cert-manager" "20"
   #cmctl check api --wait=2m --kubeconfig "${}" --context "${}"
 
-  kubectl -v=9 get nskubectl -v=9 get ns
+  kubectl -v=9 get ns
 
   return 0
 
