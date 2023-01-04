@@ -244,29 +244,35 @@ configure_kube() {
   SELECTED_CA_PEM=$(eval "echo \"\$$ca_pem_var\"")
   SELECTED_KUBE_URL=$(eval "echo \"\$$kube_url_var\"")
 
-  kubectl config get-contexts
+  #kubectl config get-contexts
 
   log "Configuring KUBE"
-  echo "${SELECTED_CA_PEM}" > "$(pwd)/kube.ca.pem"
+  # echo "${SELECTED_CA_PEM}" > "$(pwd)/kube.ca.pem"
 
-  kubectl config set-cluster "${SELECTED_KUBE_NAME}" \
-    --server="${SELECTED_KUBE_URL}" \
-    --certificate-authority="$(pwd)/kube.ca.pem"
+  # kubectl config set-cluster "${SELECTED_KUBE_NAME}" \
+  #   --server="${SELECTED_KUBE_URL}" \
+  #   --certificate-authority="$(pwd)/kube.ca.pem"
 
-  kubectl config set-credentials aws \
-    --exec-command aws-iam-authenticator \
-    --exec-api-version client.authentication.k8s.io/v1beta1\
-    --exec-arg=token \
-    --exec-arg=-i --exec-arg="${SELECTED_KUBE_NAME}" \
-    --exec-arg=-r --exec-arg="${AWS_ACCOUNT_ROLE_ARN}"
+  # kubectl config set-credentials aws \
+  #   --exec-command aws-iam-authenticator \
+  #   --exec-api-version client.authentication.k8s.io/v1beta1\
+  #   --exec-arg=token \
+  #   --exec-arg=-i --exec-arg="${SELECTED_KUBE_NAME}" \
+  #   --exec-arg=-r --exec-arg="${AWS_ACCOUNT_ROLE_ARN}"
 
-  kubectl config set-context "${SELECTED_KUBE_NAME}" \
-    --cluster="${SELECTED_KUBE_NAME}" \
-    --user=aws
+  # kubectl config set-context "${SELECTED_KUBE_NAME}" \
+  #   --cluster="${SELECTED_KUBE_NAME}" \
+  #   --user=aws
 
-  kubectl config use-context "${SELECTED_KUBE_NAME}"
+  # kubectl config use-context "${SELECTED_KUBE_NAME}"
 
-  kubectl config get-contexts
+  # kubectl config get-contexts
+
+  aws eks update-kubeconfig \
+    --alias "${SELECTED_KUBE_NAME}" \
+    --name "${SELECTED_KUBE_NAME}" \
+    --region us-west-2 \
+    --kubeconfig ~/kube/"${SELECTED_KUBE_NAME}"
 }
 
 ########################################################################################################################
