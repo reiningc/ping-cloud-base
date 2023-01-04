@@ -32,11 +32,11 @@ aws-iam-authenticator version
 # Apply Custom Resource Definitions separate, due to size, if applicable
 apply_crds "${PROJECT_DIR}"
 
-# Build file while cert-manager webhook service coming up to save time
-build_dev_deploy_file "${deploy_file}"
+# # Build file while cert-manager webhook service coming up to save time
+# build_dev_deploy_file "${deploy_file}"
 
-kubectl apply -f "${deploy_file}"
+# kubectl apply -f "${deploy_file}"
 
-check_if_ready "${PING_CLOUD_NAMESPACE}"
+# check_if_ready "${PING_CLOUD_NAMESPACE}"
 
 popd  > /dev/null 2>&1

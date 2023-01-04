@@ -665,10 +665,14 @@ apply_crds() {
   kubectl config view
   # First, we need to deploy cert-manager. This is due to it using Dynamic Admission Control - Mutating Webhooks which
   # must be available before we make use cert-manager
-  kubectl apply -f "${base_dir}/k8s-configs/cluster-tools/base/cert-manager/base/cert-manager.yaml"
+  #kubectl apply -f "${base_dir}/k8s-configs/cluster-tools/base/cert-manager/base/cert-manager.yaml"
   # Wait until the webhook deployment is fully available
   #wait_for_rollout "deployment/cert-manager-webhook" "cert-manager" "20"
-  kubectl cert-manager check api --wait=2m
+  #cmctl check api --wait=2m --kubeconfig "${}" --context "${}"
+
+  kubectl -v=9 get nskubectl -v=9 get ns
+
+  return 0
 
   # argo-events CRDs
   argo_crd_yaml="${base_dir}/k8s-configs/cluster-tools/base/notification/argo-events/argo-events-crd.yaml"
