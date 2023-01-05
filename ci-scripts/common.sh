@@ -274,6 +274,8 @@ configure_kube() {
     --alias "${SELECTED_KUBE_NAME}" \
     --name "${SELECTED_KUBE_NAME}" \
     --region us-west-2
+
+  kubectl config use-context "${SELECTED_KUBE_NAME}"
 }
 
 ########################################################################################################################
