@@ -670,6 +670,8 @@ apply_crds() {
 
   # Wait until the webhook deployment is fully available
   #wait_for_rollout "deployment/cert-manager-webhook" "cert-manager" "20"
+  # Get all env vars to inspect what's going on 
+  export
   cmctl check api --wait=2m --kubeconfig /root/.kube/config --context "${SELECTED_KUBE_NAME}" --user "arn:aws:eks:us-west-2:705370621539:cluster/ci-cd-1" --cluster "arn:aws:eks:us-west-2:705370621539:cluster/ci-cd-1"
 
   kubectl -v=9 get ns
