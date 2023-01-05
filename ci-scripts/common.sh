@@ -273,7 +273,9 @@ configure_kube() {
     --role-arn "${AWS_ACCOUNT_ROLE_ARN}" \
     --alias "${SELECTED_KUBE_NAME}" \
     --name "${SELECTED_KUBE_NAME}" \
-    --region us-west-2 \
+    --region us-west-2
+
+    # Use default kubeconfig location
     --kubeconfig ~/.kube/"${SELECTED_KUBE_NAME}"
 }
 
