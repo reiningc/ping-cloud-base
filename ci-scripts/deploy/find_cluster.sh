@@ -7,6 +7,8 @@ test "${VERBOSE}" && set -x
 SCRIPT_HOME=$(cd $(dirname ${0}); pwd)
 . ${SCRIPT_HOME}/../common.sh
 
+
+
 ########################################################################################################################
 # Finds an available ci-cd cluster to run on:
 #
@@ -20,6 +22,8 @@ find_cluster() {
   if test ${HAS_REQUIRED_VARS} -ne 0; then
     exit 1
   fi
+
+  configure_aws
 
   cluster_postfixes=($CLUSTER_POSTFIXES)
   found_cluster=false
