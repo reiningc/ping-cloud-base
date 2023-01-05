@@ -674,7 +674,7 @@ apply_crds() {
   kube_url_var="KUBE_URL$SELECTED_POSTFIX"
   SELECTED_KUBE_URL=$(eval "echo \"\$$kube_url_var\"")
 
-  cmctl check api --wait=2m --kubeconfig /root/.kube/config --context "${SELECTED_KUBE_NAME}" --user "arn:aws:eks:us-west-2:705370621539:cluster/ci-cd-1" --cluster "arn:aws:eks:us-west-2:705370621539:cluster/ci-cd-1" --server "${SELECTED_KUBE_URL}"
+  cmctl check api --wait=2m --kubeconfig /root/.kube/config --context "${SELECTED_KUBE_NAME}" --user "arn:aws:eks:us-west-2:705370621539:cluster/ci-cd-1" --cluster "arn:aws:eks:us-west-2:705370621539:cluster/ci-cd-1" --server "${SELECTED_KUBE_URL}" -n cert-manager
 
   kubectl -v=9 get ns
 
