@@ -218,8 +218,6 @@ set_pingone_api_env_vars() {
 ########################################################################################################################
 # Configures kubectl to be able to talk to the Kubernetes API server based on the following environment variables:
 #
-#   - KUBE_CA_PEM
-#   - KUBE_URL
 #   - SELECTED_KUBE_NAME
 #   - AWS_ACCOUNT_ROLE_ARN
 #
@@ -231,7 +229,7 @@ configure_kube() {
     return
   fi
 
-  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" "AWS_PROFILE"
+  check_env_vars "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN"
   HAS_REQUIRED_VARS=${?}
 
   if test ${HAS_REQUIRED_VARS} -ne 0; then

@@ -27,7 +27,7 @@ deploy_file=/tmp/deploy.yaml
 # Apply Custom Resource Definitions separate, due to size, if applicable
 apply_crds "${PROJECT_DIR}"
 
-# # Build file while cert-manager webhook service coming up to save time
+# Build file while cert-manager webhook service coming up to save time
 build_dev_deploy_file "${deploy_file}"
 
 kubectl apply -f "${deploy_file}"

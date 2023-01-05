@@ -7,8 +7,6 @@ test "${VERBOSE}" && set -x
 SCRIPT_HOME=$(cd $(dirname ${0}); pwd)
 . ${SCRIPT_HOME}/../common.sh
 
-
-
 ########################################################################################################################
 # Finds an available ci-cd cluster to run on:
 #
