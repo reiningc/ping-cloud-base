@@ -231,9 +231,6 @@ configure_kube() {
     return
   fi
 
-  ca_pem_var="KUBE_CA_PEM$SELECTED_POSTFIX"
-  kube_url_var="KUBE_URL$SELECTED_POSTFIX"
-
   check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" ca_pem_var kube_url_var "AWS_PROFILE"
   HAS_REQUIRED_VARS=${?}
 
@@ -241,32 +238,7 @@ configure_kube() {
     exit 1
   fi
 
-  SELECTED_CA_PEM=$(eval "echo \"\$$ca_pem_var\"")
-  SELECTED_KUBE_URL=$(eval "echo \"\$$kube_url_var\"")
-
-  #kubectl config get-contexts
-
   log "Configuring KUBE"
-  # echo "${SELECTED_CA_PEM}" > "$(pwd)/kube.ca.pem"
-
-  # kubectl config set-cluster "${SELECTED_KUBE_NAME}" \
-  #   --server="${SELECTED_KUBE_URL}" \
-  #   --certificate-authority="$(pwd)/kube.ca.pem"
-
-  # kubectl config set-credentials aws \
-  #   --exec-command aws-iam-authenticator \
-  #   --exec-api-version client.authentication.k8s.io/v1beta1\
-  #   --exec-arg=token \
-  #   --exec-arg=-i --exec-arg="${SELECTED_KUBE_NAME}" \
-  #   --exec-arg=-r --exec-arg="${AWS_ACCOUNT_ROLE_ARN}"
-
-  # kubectl config set-context "${SELECTED_KUBE_NAME}" \
-  #   --cluster="${SELECTED_KUBE_NAME}" \
-  #   --user=aws
-
-  # kubectl config use-context "${SELECTED_KUBE_NAME}"
-
-  # kubectl config get-contexts
 
   aws eks update-kubeconfig \
     --profile "default" \

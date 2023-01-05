@@ -22,12 +22,7 @@ if [[ -n ${PINGONE} ]]; then
   python3 ${PROJECT_DIR}/ci-scripts/deploy/ping-one/p1_env_setup_and_teardown.py Setup
 fi
 
-set -x
-
 deploy_file=/tmp/deploy.yaml
-
-kubectl version
-aws-iam-authenticator version
 
 # Apply Custom Resource Definitions separate, due to size, if applicable
 apply_crds "${PROJECT_DIR}"
