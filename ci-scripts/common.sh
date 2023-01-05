@@ -231,7 +231,7 @@ configure_kube() {
     return
   fi
 
-  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" ca_pem_var kube_url_var "AWS_PROFILE"
+  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" "AWS_PROFILE"
   HAS_REQUIRED_VARS=${?}
 
   if test ${HAS_REQUIRED_VARS} -ne 0; then
@@ -240,6 +240,8 @@ configure_kube() {
 
   log "Configuring KUBE"
 
+  # Use AWS profile 'default' because this is the profile the AWS Access Key/Secret key go under in the 'configure_aws'
+  # function. This profile then assumes the role specified by $AWS_ACCOUNT_ROLE_ARN, within the kube config.
   aws eks update-kubeconfig \
     --profile "default" \
     --role-arn "${AWS_ACCOUNT_ROLE_ARN}" \
