@@ -234,7 +234,7 @@ configure_kube() {
   ca_pem_var="KUBE_CA_PEM$SELECTED_POSTFIX"
   kube_url_var="KUBE_URL$SELECTED_POSTFIX"
 
-  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" ca_pem_var kube_url_var "${AWS_PROFILE}"
+  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" ca_pem_var kube_url_var "AWS_PROFILE"
   HAS_REQUIRED_VARS=${?}
 
   if test ${HAS_REQUIRED_VARS} -ne 0; then
