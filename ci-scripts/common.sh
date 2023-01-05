@@ -234,7 +234,7 @@ configure_kube() {
   ca_pem_var="KUBE_CA_PEM$SELECTED_POSTFIX"
   kube_url_var="KUBE_URL$SELECTED_POSTFIX"
 
-  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" ca_pem_var kube_url_var
+  check_env_vars "SELECTED_POSTFIX" "SELECTED_KUBE_NAME" "AWS_ACCOUNT_ROLE_ARN" ca_pem_var kube_url_var "${AWS_PROFILE}"
   HAS_REQUIRED_VARS=${?}
 
   if test ${HAS_REQUIRED_VARS} -ne 0; then
@@ -269,10 +269,12 @@ configure_kube() {
   # kubectl config get-contexts
 
   aws eks update-kubeconfig \
+    --profile "${AWS_PROFILE}" \
+    --role-arn "${AWS_ACCOUNT_ROLE_ARN}" \
     --alias "${SELECTED_KUBE_NAME}" \
     --name "${SELECTED_KUBE_NAME}" \
     --region us-west-2 \
-    --kubeconfig ~/kube/"${SELECTED_KUBE_NAME}"
+    --kubeconfig ~/.kube/"${SELECTED_KUBE_NAME}"
 }
 
 ########################################################################################################################
@@ -293,7 +295,7 @@ configure_aws() {
     return
   fi
 
-  check_env_vars "AWS_ACCESS_KEY_ID" "AWS_SECRET_ACCESS_KEY" "AWS_DEFAULT_REGION" "AWS_ACCOUNT_ROLE_ARN"
+  check_env_vars "AWS_ACCESS_KEY_ID" "AWS_SECRET_ACCESS_KEY" "AWS_DEFAULT_REGION" "AWS_ACCOUNT_ROLE_ARN" "AWS_PROFILE"
   HAS_REQUIRED_VARS=${?}
 
   if test ${HAS_REQUIRED_VARS} -ne 0; then
