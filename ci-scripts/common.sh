@@ -269,7 +269,7 @@ configure_kube() {
   # kubectl config get-contexts
 
   aws eks update-kubeconfig \
-    --profile "${AWS_PROFILE}" \
+    --profile "default" \
     --role-arn "${AWS_ACCOUNT_ROLE_ARN}" \
     --alias "${SELECTED_KUBE_NAME}" \
     --name "${SELECTED_KUBE_NAME}" \
