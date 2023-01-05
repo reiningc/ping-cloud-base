@@ -274,9 +274,6 @@ configure_kube() {
     --alias "${SELECTED_KUBE_NAME}" \
     --name "${SELECTED_KUBE_NAME}" \
     --region us-west-2
-
-    # Use default kubeconfig location
-    --kubeconfig ~/.kube/"${SELECTED_KUBE_NAME}"
 }
 
 ########################################################################################################################
