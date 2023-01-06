@@ -72,10 +72,6 @@ class TestPingFederateHealth(TestHealthBase):
             f"No '{test_name}' checks found in health check results",
         )
 
-    def test_health_check_has_pod_results(self):
-        self.ping_cloud_ns = next((ns for ns in self.get_namespace_names() if ns.startswith(self.ping_cloud)), self.ping_cloud)
-        self.pod_names = self.get_namespaced_pod_names(self.ping_cloud_ns, r"pingfederate")
-
     def test_health_check_has_datastore_connection_results(self):
         test_results = self.get_test_results(self.pingfederate, Categories.connectivity)
         test_results = " ".join(test_results.keys())
