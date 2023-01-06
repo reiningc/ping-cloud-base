@@ -14,6 +14,7 @@
 - Remove unneeded resources from secondary region
 - Retain set value for slack channel alerts
 - Added CICD integration health test to check certificate results
+- Added CICD integration health test to check pingfederate datastore results
 - Modified Kibana dashboards to show second region logs and metrics
 - Allow release branches to update image names using the kustomize image patch
 - Add beluga_log verbosity level to control logging level
@@ -36,6 +37,7 @@ _Changes:_
 - [X] PDO-4224 Properly propagate SSH key when upgrading CSR
 - [X] PDO-4240 PF Health Check Tests - Certificates
 - [X] PDO-4279 Add Pod Disruption Budgets for PA-WAS Engine, PingDelegator
+- [X] PDO-4291 PF Health Check Tests - connectivity
 - [X] PDO-4312 PA-WAS Health Check Tests - object creation, unauthenticated proxy requests
 - [X] PDO-4432 Logstash has broken tolerations
 - [X] PDO-4535 Argo CD non-root user changes
