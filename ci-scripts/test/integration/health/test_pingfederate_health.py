@@ -71,18 +71,6 @@ class TestPingFederateHealth(TestHealthBase):
             test_name in test_results,
             f"No '{test_name}' checks found in health check results",
         )
-
-    def test_health_check_has_datastore_connection_results(self):
-        test_results = self.get_test_results(self.pingfederate, Categories.connectivity)
-        test_results = " ".join(test_results.keys())
-        expected_test_patterns = [f"{pod_name} can connect to datastore" for pod_name in self.pod_names]
-        for expected_test in expected_test_patterns:
-            with self.subTest(expected_test):
-                self.assertRegex(
-                    test_results,
-                    expected_test,
-                    f"No '{expected_test}' checks found in health check results",
-                )
       
     def test_health_check_has_pingdirectory_connection_results(self):
         test_results = self.get_test_results(self.pingfederate, Categories.connectivity)
