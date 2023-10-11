@@ -17,8 +17,8 @@ dsconfig create-plugin \
   --plugin-name 'PingOne for Customers Pass-Through Authentication Plugin' \
   --type ping-one-for-customers-pass-through-authentication \
   --set enabled:true \
-  --set api-url:https://api.pingone.com/v1 \
-  --set auth-url:https://auth.pingone.com/${P14C_ENVIRONMENT_ID}/as/token \
+  --set api-url:https://api-staging.pingone.com/v1 \
+  --set auth-url:https://auth-staging.pingone.com/${P14C_ENVIRONMENT_ID}/as/token \
   --set oauth-client-id:${P14C_CLIENT_ID} \
   --set oauth-client-secret:${P14C_CLIENT_SECRET} \
   --set environment-id:${P14C_ENVIRONMENT_ID} \
