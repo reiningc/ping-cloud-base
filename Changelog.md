@@ -330,6 +330,7 @@ _Changes:_
 - Improve logstash alerting in multi-regional cluster
 - Fail PingDirectory backup Job if any backend fails upon running backup CLI
 - Number of ES-warm nodes increased to 3
+- Remove PingDirectory Pass-Through Authentication secrets and plugin
 
 _Changes:_
 
@@ -456,6 +457,7 @@ _Changes:_
 - [X] PDO-5648 [PORT PDO-5508] Extend PingDirectory replica count to up to 50 pods per region and 11 base DNs if needed
 - [X] PDO-5650 set NOTIFICATION_ENABLED to True by default
 - [X] PDO-5690 v1.18 Prepare for Ability to Update Upgrade Scripts w/o Release of New Beluga Version
+- [X] PDO-5739 Remove unused pingdirectory-passwords secrets
 - [X] PDO-5804 Add REGION env var for healthcheck probes in customer hub
 - [X] PDO-5815 Fluent-Bit: change IMDS version to v2
 - [X] PDO-5832 Add "--skipPrime" flag to PD start-server script
