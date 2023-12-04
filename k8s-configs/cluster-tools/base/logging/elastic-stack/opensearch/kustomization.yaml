@@ -17,4 +17,9 @@ resources:
 - alerts
 - notifications
 - bootstrap.yaml
+- p1as-bootstrap.yaml
 
+configMapGenerator:
+- files:
+  - p1as-bootstrap-resources.yaml
+  name: p1as-bootstrap-resources
