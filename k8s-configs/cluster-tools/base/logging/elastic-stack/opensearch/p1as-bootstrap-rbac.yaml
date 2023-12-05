@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: p1as-bootstrap
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: p1as-bootstrap-role
+rules:
+  - apiGroups:
+    - ""
+    resources:
+    - "configmaps"
+    verbs:
+    - create
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - "secrets"
+    verbs:
+    - create
+    - update
+    - patch
+    - get
+    - list
+    - watch
+---
+# Source: opensearch/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: p1as-bootstrap-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: p1as-bootstrap
+    namespace: elastic-stack-logging
+roleRef:
+  kind: Role
+  name: p1as-bootstrap-role
+  apiGroup: rbac.authorization.k8s.io

@@ -11,7 +11,7 @@ spec:
   ttlSecondsAfterFinished: 86400
   template:
     spec:
-      serviceAccountName: argocd-server
+      serviceAccountName: p1as-bootstrap
       containers:
       - name: p1as-bootstrap
         securityContext:
