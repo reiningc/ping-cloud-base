@@ -104,25 +104,6 @@ feature_flags() {
   done
 }
 
-disable_healthchecks() {
-  if [[ "${HEALTHCHECKS_ENABLED}" != "true" ]]; then
-    log "healthchecks disabled"
-    return 0
-  fi
-  log "healthchecks enabled"
-  cd "${1}/k8s-configs"
-  pwd
-  # Comment out healthcheck deployment delete patches
-  local patch_name="disable-healthchecks"
-  for kust_file in $(git grep -l "${patch_name}" | grep "kustomization.yaml"); do
-    log "Commenting out ${patch_name} in ${kust_file}"
-    sed -i.bak \
-      -e "/${patch_name}/ s|^#*|#|g" \
-      "${kust_file}"
-    rm -f "${kust_file}".bak
-  done
-}
-
 ########################################################################################################################
 # Comments the remove external ingress patch for ping apps from k8s-configs kustomization.yaml files.
 # Hence the apps which are part of list in EXTERNAL_INGRESS_ENABLED will have external ingress enabled.
@@ -258,7 +239,6 @@ if test -f 'env_vars'; then
 
     feature_flags "${TMP_DIR}/${K8S_GIT_BRANCH}"
     enable_external_ingress
-    disable_healthchecks "${TMP_DIR}/${K8S_GIT_BRANCH}"
   )
   test $? -ne 0 && exit 1
 fi

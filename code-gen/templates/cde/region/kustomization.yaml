@@ -207,10 +207,19 @@ configMapGenerator:
 
 patchesStrategicMerge:
 
+### MANUAL UPDATES SECTION - START
+
+## Healthchecks
+# To enable all healthchecks - comment out the following line
+- ../base/cluster-tools/health/disable-all-healthchecks.yaml
+
+### MANUAL UPDATES SECTION - END
+
 ### PS/GSO customizations to OOTB resources should only go into this file. Otherwise, CSR auto-updates will break. ###
 - custom-patches.yaml
 
 ### Regional enablement - remove admins, backups, etc. from secondary ###
+
 ### The removal of these patches is handled automatically via generate-cluster-state script, manual toggling is not needed ###
 
 - ../base/ping-cloud/pingdirectory/server/remove-from-secondary-patch.yaml
@@ -236,9 +245,6 @@ patchesStrategicMerge:
 - pingfederate/ff-external-ingress/remove-external-ingress.yaml
 ### The patch is copied from pingcommon
 - ../base/ping-cloud/pingaccess-was/ff-external-ingress/remove-external-ingress.yaml
-
-#- ../base/cluster-tools/health/disable-healthchecks.yaml
-#- ../base/ping-cloud/pingcommon/health/disable-healthchecks.yaml
 
 #- ../base/ping-cloud/pingfederate/provisioning/remove-from-secondary-patch.yaml
 

@@ -18,6 +18,3 @@ resources:
 - deployment.yaml
 - ingress.yaml
 - service.yaml
-
-patchesStrategicMerge:
-  - disable-healthchecks.yaml

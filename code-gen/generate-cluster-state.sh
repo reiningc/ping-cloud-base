@@ -1312,12 +1312,6 @@ for ENV_OR_BRANCH in ${SUPPORTED_ENVIRONMENT_TYPES}; do
     sed -i.bak 's/^\(.*remove-from-secondary-patch.yaml\)$/# \1/g' "${PRIMARY_PING_KUST_FILE}"
     rm -f "${PRIMARY_PING_KUST_FILE}.bak"
   fi
-#
-#  if test "${HEALTHCHECKS_ENABLED}" == "true"; then
-#    echo "Healthchecks enabled - removing delete patches from ${PRIMARY_PING_KUST_FILE}"
-#    sed -i.bak "/disable-healthchecks/ s|^#*|#|g" "${PRIMARY_PING_KUST_FILE}"
-#    rm -f "${PRIMARY_PING_KUST_FILE}.bak"
-#  fi
 
   echo "Copying server profiles for environment ${ENV}"
   ENV_PROFILES_DIR="${PROFILES_DIR}/${ENV_OR_BRANCH}"
