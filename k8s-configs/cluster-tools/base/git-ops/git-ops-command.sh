@@ -110,7 +110,7 @@ disable_healthchecks() {
     return 0
   fi
   log "healthchecks enabled"
-  cd "${1}"
+  cd "${1}/k8s-configs"
   pwd
   # Comment out healthcheck deployment delete patches
   local patch_name="disable-healthchecks"

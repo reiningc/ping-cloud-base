@@ -21,3 +21,6 @@ resources:
 - httpbin-pa-was.yaml
 - secrets.yaml
 - httpbin-pa.yaml
+
+patchesStrategicMerge:
+  - disable-healthchecks.yaml

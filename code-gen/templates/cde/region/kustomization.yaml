@@ -237,8 +237,8 @@ patchesStrategicMerge:
 ### The patch is copied from pingcommon
 - ../base/ping-cloud/pingaccess-was/ff-external-ingress/remove-external-ingress.yaml
 
-- ../base/cluster-tools/health/disable-healthchecks.yaml
-- ../base/ping-cloud/pingcommon/health/disable-healthchecks.yaml
+#- ../base/cluster-tools/health/disable-healthchecks.yaml
+#- ../base/ping-cloud/pingcommon/health/disable-healthchecks.yaml
 
 #- ../base/ping-cloud/pingfederate/provisioning/remove-from-secondary-patch.yaml
 
