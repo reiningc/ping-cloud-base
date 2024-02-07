@@ -20,6 +20,8 @@ patchesStrategicMerge:
 ### Remove healthchecks for undeployed products
 - ../base/cluster-tools/health/remove-from-primary-patch.yaml
 - ../base/cluster-tools/health/remove-from-secondary-patch.yaml
+- ../base/cluster-tools/health/disable-healthchecks.yaml
+- ../base/ping-cloud/pingcommon/health/disable-healthchecks.yaml
 
 ### Regional enablement - remove admins, backups, etc. from secondary ###
 ### The removal of these patches is handled automatically via generate-cluster-state script, manual toggling is not needed ###
