@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingcloud-healthcheck
-  namespace: ${PING_CLOUD_NAMESPACE}
+#  namespace: ${PING_CLOUD_NAMESPACE}
 $patch: delete
 
 ---
@@ -11,7 +11,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: healthcheck
-  namespace: ${PING_CLOUD_NAMESPACE}
+#  namespace: ${PING_CLOUD_NAMESPACE}
 $patch: delete
 
 ---
@@ -20,7 +20,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: healthcheck-ingress
-  namespace: ${PING_CLOUD_NAMESPACE}
+#  namespace: ${PING_CLOUD_NAMESPACE}
 $patch: delete
 
 ---
