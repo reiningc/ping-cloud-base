@@ -1280,18 +1280,18 @@ for ENV_OR_BRANCH in ${SUPPORTED_ENVIRONMENT_TYPES}; do
 
     # Keep ArgoCD in pingaccess-was-ingress by replacing the delete patches
     # shellcheck disable=SC2016
-    export argocd_ingress_patch='
-# Argo CD pingaccess was runtime
-- op: replace
-  path: /spec/tls/0/hosts/6
-  value: argocd.${DNS_ZONE}
-- op: replace
-  path: /spec/rules/6/host
-  value: argocd.${DNS_ZONE}
-'
-    K8S_CONFIGS_PA_WAS_ENGINE_KUSTOMIZE_FILE="${K8S_CONFIGS_DIR}/base/ping-cloud/pingaccess-was/engine/kustomization.yaml"
-    yq eval -i '.patchesJson6902[1].patch |= (from_yaml | .[:-2] | to_yaml)' "${K8S_CONFIGS_PA_WAS_ENGINE_KUSTOMIZE_FILE}"
-    yq eval -i '.patchesJson6902[1].patch += strenv(argocd_ingress_patch)' "${K8S_CONFIGS_PA_WAS_ENGINE_KUSTOMIZE_FILE}"
+#    export argocd_ingress_patch='
+## Argo CD pingaccess was runtime
+#- op: replace
+#  path: /spec/tls/0/hosts/6
+#  value: argocd.${DNS_ZONE}
+#- op: replace
+#  path: /spec/rules/6/host
+#  value: argocd.${DNS_ZONE}
+#'
+#    K8S_CONFIGS_PA_WAS_ENGINE_KUSTOMIZE_FILE="${K8S_CONFIGS_DIR}/base/ping-cloud/pingaccess-was/engine/kustomization.yaml"
+#    yq eval -i '.patchesJson6902[1].patch |= (from_yaml | .[:-2] | to_yaml)' "${K8S_CONFIGS_PA_WAS_ENGINE_KUSTOMIZE_FILE}"
+#    yq eval -i '.patchesJson6902[1].patch += strenv(argocd_ingress_patch)' "${K8S_CONFIGS_PA_WAS_ENGINE_KUSTOMIZE_FILE}"
 
     # Append the secrets from customer-hub to the CDE secrets, except PingCentral since that doesn't exist in the CDE
     printf "\n# %%%% NOTE: Below secrets are for the Developer CDE only (when IS_BELUGA_ENV is 'true') to make sure Argo works properly %%%%#\n" >> "${K8S_CONFIGS_DIR}/base/secrets.yaml"
