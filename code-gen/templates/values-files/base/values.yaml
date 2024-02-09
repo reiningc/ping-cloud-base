@@ -123,4 +123,6 @@ global:
   radiusProxyEnabled: ${RADIUS_PROXY_ENABLED}
 
   external_ingress_enabled: ${EXTERNAL_INGRESS_ENABLED}
+
+  healthchecksEnabled: ${HEALTHCHECKS_ENABLED}
   #####################################################################################################################
