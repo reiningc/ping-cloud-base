@@ -1,0 +1,8 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: customer-p1-connection
+  namespace: argocd
+$patch: delete
+---
