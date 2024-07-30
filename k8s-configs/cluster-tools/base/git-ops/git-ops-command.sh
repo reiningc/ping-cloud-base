@@ -163,6 +163,10 @@ enable_customer_p1_connection_job() {
       log "Commenting ${search_term} in ${kust_file}"
       sed -i.bak -e "/${search_term}/ s|^#*|#|g" "${kust_file}"
       rm -f "${kust_file}".bak
+    else
+      log "Uncommenting ${search_term} in ${kust_file}"
+      sed -i.bak -e "/${search_term}/ s|^#*||g" "${kust_file}"
+      rm -f "${kust_file}".bak
     fi
   done
 }
