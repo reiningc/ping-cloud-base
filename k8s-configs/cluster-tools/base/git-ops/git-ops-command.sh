@@ -55,14 +55,49 @@ substitute_vars() {
 # Get the value for an environment variable from an env_vars file.
 #
 # Arguments
-#   $1 -> The env_vars file containing the environment variable
-#   $2 -> The env_var name to get the value for
+#   $1 -> The env_vars file containing the environment variable.
+#   $2 -> The env_var name to get the value for.
 ########################################################################################################################
 get_env_var_value() {
   local env_file="$1"
   local env_var_name="$2"
 
   grep -E "^${env_var_name}=" "${env_file}" | cut -d= -f2
+}
+
+########################################################################################################################
+# Comments out lines in a file containing a search term.
+#
+# Arguments
+#   $1 -> The file to comment out lines in.
+#   $2 -> The search term.
+########################################################################################################################
+comment_lines_in_file() {
+  local file="$1"
+  local search_term="$2"
+  log "Commenting out ${search_term} in ${file}"
+  sed -i.bak \
+    -e "/${search_term}/ s|^#*|#|g" \
+    "${file}"
+  rm -f "${file}".bak
+}
+
+
+########################################################################################################################
+# Uncomments out lines in a file containing a search term.
+#
+# Arguments
+#   $1 -> The file to uncomment lines in.
+#   $2 -> The search term.
+########################################################################################################################
+uncomment_lines_in_file() {
+  local file="$1"
+  local search_term="$2"
+  log "Uncommenting ${search_term} in ${file}"
+  sed -i.bak \
+    -e "/${search_term}/ s|^#*||g" \
+    "${file}"
+  rm -f "${file}".bak
 }
 
 ########################################################################################################################
@@ -107,11 +142,7 @@ feature_flags() {
     # If the feature flag is disabled, comment the search term lines out of the kustomization files
     if [[ ${enabled} != "true" ]]; then
       for kust_file in $(git grep -l "${search_term}" | grep "kustomization.yaml"); do
-        log "Commenting out ${search_term} in ${kust_file}"
-        sed -i.bak \
-          -e "/${search_term}/ s|^#*|#|g" \
-          "${kust_file}"
-        rm -f "${kust_file}".bak
+        comment_lines_in_file "${kust_file}" "${search_term}"
       done
     fi
   done
@@ -126,10 +157,7 @@ enable_external_ingress() {
     search_term="${apps}[/].*remove-external-ingress"
     for kust_file in $(grep --exclude-dir=.git -rwl -e "${search_term}" | grep "kustomization.yaml"); do
       log "Commenting external ingress for ${apps} in ${kust_file}"
-      sed -i.bak \
-        -e "/${search_term}/ s|^#*|#|g" \
-        "${kust_file}"
-      rm -f "${kust_file}".bak
+      comment_lines_in_file "${kust_file}" "${search_term}"
     done
   done
 }
@@ -141,11 +169,7 @@ disable_grafana_crds() {
   cd "${TMP_DIR}"
   search_term="grafana-operator\/base"
   for kust_file in $(grep --exclude-dir=.git -rwl -e "${search_term}" | grep "kustomization.yaml"); do
-      log "Commenting grafana ${kust_file}"
-      sed -i.bak \
-        -e "/${search_term}/ s|^#*|#|g" \
-        "${kust_file}"
-      rm -f "${kust_file}".bak
+      comment_lines_in_file "${kust_file}" "${search_term}"
     done
 }
 
@@ -156,11 +180,7 @@ disable_os_operator_crds() {
   cd "${TMP_DIR}"
   search_term="opensearch-operator\/crd"
   for kust_file in $(grep --exclude-dir=.git -rwl -e "${search_term}" | grep "kustomization.yaml"); do
-      log "Commenting opensearch operator ${kust_file}"
-      sed -i.bak \
-        -e "/${search_term}/ s|^#*|#|g" \
-        "${kust_file}"
-      rm -f "${kust_file}".bak
+      comment_lines_in_file "${kust_file}" "${search_term}"
     done
 }
 
@@ -170,19 +190,16 @@ disable_os_operator_crds() {
 toggle_customer_p1_connection_job() {
   cd "${TMP_DIR}"
   local search_term='disable-customer-p1-connection-patch.yaml'
-  local base_env_vars
+  local base_env_vars_file
   local customer_p1_enabled_lc
+  base_env_vars_file=$(find "${TMP_DIR}/base" -maxdepth 1 -name "env_vars")
+  customer_p1_enabled_lc=$(get_env_var_value "${base_env_vars_file}" CUSTOMER_PINGONE_ENABLED | tr '[:upper:]' '[:lower:]')
+
   for kust_file in $(grep --exclude-dir=.git -rwl -e "${search_term}" | grep "kustomization.yaml"); do
-    base_env_vars=$(find "${TMP_DIR}/base" -maxdepth 1 -name "env_vars")
-    customer_p1_enabled_lc=$(get_env_var_value "${base_env_vars}" CUSTOMER_PINGONE_ENABLED | tr '[:upper:]' '[:lower:]')
     if [[ "${customer_p1_enabled_lc}" == "true" ]]; then
-      log "Commenting ${search_term} in ${kust_file}"
-      sed -i.bak -e "/${search_term}/ s|^#*|#|g" "${kust_file}"
-      rm -f "${kust_file}".bak
+      comment_lines_in_file "${kust_file}" "${search_term}"
     else
-      log "Uncommenting ${search_term} in ${kust_file}"
-      sed -i.bak -e "/${search_term}/ s|^#*||g" "${kust_file}"
-      rm -f "${kust_file}".bak
+      uncomment_lines_in_file "${kust_file}" "${search_term}"
     fi
   done
 }
