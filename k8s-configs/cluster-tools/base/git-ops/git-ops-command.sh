@@ -52,6 +52,20 @@ substitute_vars() {
 }
 
 ########################################################################################################################
+# Get the value for an environment variable from an env_vars file.
+#
+# Arguments
+#   $1 -> The env_vars file containing the environment variable
+#   $2 -> The env_var name to get the value for
+########################################################################################################################
+get_env_var_value() {
+  local env_file="$1"
+  local env_var_name="$2"
+
+  grep -E "^${env_var_name}=" "${env_file}" | cut -d= -f2
+}
+
+########################################################################################################################
 # Returns the first directory relative to the second.
 #
 # Arguments
@@ -151,14 +165,16 @@ disable_os_operator_crds() {
 }
 
 ########################################################################################################################
-# Enable customer-p1-connection job
+# Toggles enabling/disabling the customer-p1-connection job
 ########################################################################################################################
-enable_customer_p1_connection_job() {
+toggle_customer_p1_connection_job() {
   cd "${TMP_DIR}"
   local search_term='disable-customer-p1-connection-patch.yaml'
+  local base_env_vars
+  local customer_p1_enabled_lc
   for kust_file in $(grep --exclude-dir=.git -rwl -e "${search_term}" | grep "kustomization.yaml"); do
-    local customer_p1_enabled_lc
-    customer_p1_enabled_lc=$(echo "${CUSTOMER_PINGONE_ENABLED}" | tr '[:upper:]' '[:lower:]')
+    base_env_vars=$(find "${TMP_DIR}/base" -maxdepth 1 -name "env_vars")
+    customer_p1_enabled_lc=$(get_env_var_value "${base_env_vars}" CUSTOMER_PINGONE_ENABLED | tr '[:upper:]' '[:lower:]')
     if [[ "${customer_p1_enabled_lc}" == "true" ]]; then
       log "Commenting ${search_term} in ${kust_file}"
       sed -i.bak -e "/${search_term}/ s|^#*|#|g" "${kust_file}"
@@ -327,7 +343,7 @@ if ! command -v argocd &> /dev/null ; then
   disable_os_operator_crds
 fi
 
-enable_customer_p1_connection_job
+toggle_customer_p1_connection_job
 
 # Build the uber deploy yaml
 if [[ ${DEBUG} == "true" ]]; then
