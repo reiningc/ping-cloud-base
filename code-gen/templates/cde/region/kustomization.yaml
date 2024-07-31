@@ -229,6 +229,9 @@ patchesStrategicMerge:
   - pingfederate/ff-external-ingress/remove-external-ingress.yaml
   ### The patch is copied from pingcommon
   - ../base/ping-cloud/pingaccess-was/ff-external-ingress/remove-external-ingress.yaml
+  ### Customer PingOne connection is disabled by default. Automatically toggled by git-ops-command.sh based on
+  ### CUSTOMER_PINGONE_ENABLED value in base/env_vars.
+  - ../base/cluster-tools/git-ops/disable-customer-p1-connection-patch.yaml
 
   ### Remove PGO dashboards from secondary region, uncomment line below for PGO enabled multi-region environment
   #- ../base/cluster-tools/monitoring/remove-pgo-dashboard-from-secondary-patch.yaml
@@ -237,9 +240,6 @@ patchesStrategicMerge:
 
   ### CloudWatch is disabled by default but should be added for GA envs
   #- ../base/cluster-tools/monitoring/disable-cloudwatch.yaml
-
-  ### Customer PingOne connection is disabled by default. Enabled when CUSTOMER_PINGONE_ENABLED is set to true
-  - ../base/cluster-tools/git-ops/disable-customer-p1-connection-patch.yaml
 
   ### Developer CDE Environments - the following will be UNCOMMENTED if we are in a developer CDE
 
