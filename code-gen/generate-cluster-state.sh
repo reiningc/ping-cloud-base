@@ -1510,6 +1510,8 @@ for ENV_OR_BRANCH in ${SUPPORTED_ENVIRONMENT_TYPES}; do
     product_name=${app_repo#p1as-}
     # Clone microservice repo at the new version
     log "Cloning ${app_repo}@${app_repo_branch} to '${PROFILE_REPO_MIRROR_DIR}' ${MICROSERVICE_APP_REPO_URL}/p1as-apps/${app_repo}"
+    log "$(git config --get user.name)"
+    log "$(git config --get user.email)"
     git clone -c advice.detachedHead=false --depth 1 --branch "${app_repo_branch}" "${MICROSERVICE_APP_REPO_URL}/p1as-apps/${app_repo}" "${PROFILE_REPO_MIRROR_DIR}/${app_repo}"
 
     if test $? -ne 0; then
