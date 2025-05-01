@@ -75,8 +75,9 @@ if test -z "${APPS_TO_UPGRADE}"; then
   APPS_TO_UPGRADE="${ALL_APPS}"
 fi
 
-PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-$(git grep ^K8S_GIT_URL= | head -1 | cut -d= -f2)}"
-PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-https://github.com/pingidentity/ping-cloud-base}"
+#PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-$(git grep ^K8S_GIT_URL= | head -1 | cut -d= -f2)}"
+#PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-https://github.com/pingidentity/ping-cloud-base}"
+PING_CLOUD_BASE_REPO_URL="https://gitlab.corp.pingidentity.com/ping-cloud-private-tenant/ping-cloud-base"
 
 # Clone the upgrade script from p1as-upgrades repo, if necessary.
 if ! test "${P1AS_UPGRADES_REPO}"; then
