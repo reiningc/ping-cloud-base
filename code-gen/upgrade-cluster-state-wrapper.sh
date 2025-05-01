@@ -84,13 +84,15 @@ if test -z "${VALUE_ENTRY_OVERWRITE}"; then
   echo '=====> VALUE_ENTRY_OVERWRITE not set, continuing with retaining all values from previous version. '
 fi
 
-PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-$(git grep ^K8S_GIT_URL= | head -1 | cut -d= -f2)}"
-PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-https://github.com/pingidentity/ping-cloud-base}"
+#PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-$(git grep ^K8S_GIT_URL= | head -1 | cut -d= -f2)}"
+#PING_CLOUD_BASE_REPO_URL="${PING_CLOUD_BASE_REPO_URL:-https://github.com/pingidentity/ping-cloud-base}"
+PING_CLOUD_BASE_REPO_URL="https://gitlab.corp.pingidentity.com/ping-cloud-private-tenant/ping-cloud-base"
 
 # Clone the upgrade script from p1as-upgrades repo, if necessary.
 if ! test "${P1AS_UPGRADES_REPO}"; then
   REPO_CLONE_BASE_DIR="$(mktemp -d)"
-  P1AS_UPGRADES_REPO_URL="https://gitlab.corp.pingidentity.com/ping-cloud-private-tenant/${P1AS_UPGRADES}"
+#  P1AS_UPGRADES_REPO_URL="https://gitlab.corp.pingidentity.com/ping-cloud-private-tenant/${P1AS_UPGRADES}"
+  P1AS_UPGRADES_REPO_URL="https://gitlab.corp.pingidentity.com/ping-cloud-private-tenant/p1as-upgrades"
 
   # Set the upgrade script version
   if test -z "${UPGRADE_SCRIPT_VERSION}"; then
