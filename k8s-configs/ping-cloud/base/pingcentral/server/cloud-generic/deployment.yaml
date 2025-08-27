@@ -126,6 +126,26 @@ spec:
           subPath: perpetual_license.py
         - name: license-dir
           mountPath: /opt/license
+#      - name: pingcentral-p1as-sso
+#        securityContext:
+#          runAsGroup: 9999
+#          runAsNonRoot: true
+#          runAsUser: 9031
+#          allowPrivilegeEscalation: false
+#        image: public.ecr.aws/r2h3l6e4/pingcloud-services/p14c-integration/dev:v2.2-release-branch-latest
+#        imagePullPolicy: Always
+#        command: [ "/bin/sh","-c" ]
+#        # sso configuration has to be a sidecar instead of init container because it needs pingaccess api to be running
+#        # Add an infinite sleep after sso configuration so that pingaccess container continues to run
+#        args: [ "python3 -u /app/oauth_client_services_controller.py --app pingcentral" ]
+#        env:
+#          - name: NAMESPACE
+#            valueFrom:
+#              fieldRef:
+#                fieldPath: metadata.namespace
+#        envFrom:
+#          - configMapRef:
+#              name: pingcentral-environment-variables
       containers:
       - name: pingcentral
         securityContext:
