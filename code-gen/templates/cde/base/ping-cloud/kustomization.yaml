@@ -5,6 +5,7 @@ resources:
 
 # PingCloud common resources and configs. These should always be included. DO NOT comment them out.
 - pingcommon
+- pingcentral/config
 - pingaccess-was/config
 - pingaccess-was/ff-external-ingress
 - pingaccess/config

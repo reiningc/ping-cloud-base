@@ -59,6 +59,8 @@ resources:
 - ../pingaccess/admin
 - ../pingaccess/engine
 
+- ../pingcentral/server
+
 # Delegated admin resources
 - ../pingdelegator/server
 
