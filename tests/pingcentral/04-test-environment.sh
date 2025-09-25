@@ -68,6 +68,12 @@ testPFAuthenticationTypeIsOAuth2() {
   assertEquals "PingFederate authentication type is '${pf_authentication_type}', and not OAuth2" "OAuth2" "${pf_authentication_type}"
 }
 
+testPAAuthenticationTypeIsOAuth2() {
+  pa_authentication_type=$(echo "${ENVIRONMENT}" | jq -r '.paAuthenticationType')
+
+  assertEquals "PingAccess authentication type is '${pa_authentication_type}', and not OAuth2" "OAuth2" "${pa_authentication_type}"
+}
+
 shift $#
 
 . ${SHUNIT_PATH}
