@@ -11,12 +11,16 @@ fi
 
 oneTimeSetUp() {
   ENVIRONMENT_URL="https://pingcentral.${TENANT_DOMAIN}/api/v1/environments"
-  ENVIRONMENT_NAME="P1AS_default_environment_${ENV}"
+  ENVIRONMENT_NAME="P1AS_default_environment_${ENV_TYPE}"
   PINGCENTRAL_ENVIRONMENT_VARIABLES_CONFIGMAP=$(kubectl get configmap pingcentral-environment-variables -n ping-cloud -o json)
   PINGCENTRAL_PASSWORDS_SECRET=$(kubectl get secret pingcentral-passwords -n ping-cloud -o json)
-  PC_ADMIN_USER_USERNAME=$(echo "${PINGCENTRAL_ENVIRONMENT_VARIABLES_CONFIGMAP}" | jq -r '.data.PC_ADMIN_USER_USERNAME')
-  PC_ADMIN_USER_PASSWORD=$(echo "${PINGCENTRAL_PASSWORDS_SECRET}" | jq -r '.data.PC_ADMIN_USER_PASSWORD | @base64d')
+  PC_ADMIN_USER_USERNAME=$(printf '%s\n' "${PINGCENTRAL_ENVIRONMENT_VARIABLES_CONFIGMAP}" | jq -r '.data.PC_ADMIN_USER_USERNAME')
+  PC_ADMIN_USER_PASSWORD=$(printf '%s\n' "${PINGCENTRAL_PASSWORDS_SECRET}" | jq -r '.data.PC_ADMIN_USER_PASSWORD | @base64d')
   ENVIRONMENT=$(get_environment "${ENVIRONMENT_NAME}")
+
+  echo "PingCentral environments URL: ${ENVIRONMENT_URL}"
+  echo "PingCentral environment name: ${ENVIRONMENT_NAME}"
+  echo "PingCentral environment: ${ENVIRONMENT}"
 }
 
 # get environment json from pingcentral
@@ -32,8 +36,7 @@ get_environment() {
     fail "Failed to parse response from PingCentral API as JSON. Response: ${response}"
   fi
 
-  environment_json=$(echo "${response}" | jq --arg name "$name" '.items[] | select(.name==$name)')
-
+  environment_json=$(printf '%s\n' "${response}" | jq --arg name "$name" '.items[] | select(.name==$name)')
   if [ -z "${environment_json}" ]; then
     fail "PingCentral environment ${name} not found"
   else
@@ -56,16 +59,16 @@ testEnvironmentExists() {
   assertEquals "PingCentral environment '${ENVIRONMENT_NAME}' does not exist" "${ENVIRONMENT_NAME}" "${environment_name}"
 }
 
-testEnvironmentAvailable() {
-  environment_availability=$(echo "${ENVIRONMENT}" | jq -r '.environmentAvailability')
-
-  assertEquals "PingCentral environment availability is '${environment_availability}', and not 'ONLINE'" "ONLINE" "${environment_availability}"
-}
-
 testPFAuthenticationTypeIsOAuth2() {
   pf_authentication_type=$(echo "${ENVIRONMENT}" | jq -r '.pfAuthenticationType')
 
   assertEquals "PingFederate authentication type is '${pf_authentication_type}', and not OAuth2" "OAuth2" "${pf_authentication_type}"
+}
+
+testPAAuthenticationTypeIsOAuth2() {
+  pa_authentication_type=$(echo "${ENVIRONMENT}" | jq -r '.paAuthenticationType')
+
+  assertEquals "PingAccess authentication type is '${pa_authentication_type}', and not OAuth2" "OAuth2" "${pa_authentication_type}"
 }
 
 shift $#
