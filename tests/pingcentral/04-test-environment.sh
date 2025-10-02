@@ -56,7 +56,7 @@ testEnvironmentExists() {
     fail "PingCentral environment '${ENVIRONMENT_NAME}' does not exist"
   fi
 
-  assertEquals "PingCentral environment '${ENVIRONMENT_NAME}' does not exist" "${ENVIRONMENT_NAME}" "${environment_name}"
+  assertEquals "Unable to parse '${ENVIRONMENT_NAME}' from environment '${environment_name}'" "${ENVIRONMENT_NAME}" "${environment_name}"
 }
 
 testPFAuthenticationTypeIsOAuth2() {
