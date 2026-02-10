@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    # mtls annotations
+    nginx.ingress.kubernetes.io/auth-tls-secret: ping-cloud/mtls-secret
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+  name: mtls.crein-primary.ping-demo.com-pingaccess-ingress
+  namespace: ping-cloud
+spec:
+  ingressClassName: nginx-public
+  rules:
+  - host: mtls.crein-primary.ping-demo.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: pingaccess
+            port:
+              number: 9031
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - mtls.crein-primary.ping-demo.com
+    secretName: mtls-cert.crein-primary.ping-demo.com

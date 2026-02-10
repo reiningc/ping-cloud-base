@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  name: include.crein-primary.ping-demo.com-pingaccess-ingress
+  namespace: ping-cloud
+spec:
+  ingressClassName: nginx-public
+  rules:
+  - host: include.crein-primary.ping-demo.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: pingaccess
+            port:
+              number: 9031
+        path: /
+        pathType: Prefix
+  - host: include2.crein-primary.ping-demo.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: pingaccess
+            port:
+              number: 9031
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - include.crein-primary.ping-demo.com
+    - include2.crein-primary.ping-demo.com
+    secretName: acme-tls-cert-include.crein-primary.ping-demo.com
