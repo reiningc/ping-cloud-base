@@ -323,6 +323,8 @@ patches:
                 subPath: __init__.py
               - name: helm-working-dir
                 mountPath: /helm-working-dir
+              - name: p1as-versions
+                mountPath: /p1as-versions
             resources:
               requests:
                 memory: "100Mi"
@@ -338,6 +340,11 @@ patches:
           - configMap:
               name: git-ops-command
             name: git-ops-command
+          - name: p1as-versions
+            configMap:
+              name: p1as-versions
+              optional: true
+              defaultMode: 0400
 - patch: |-
     apiVersion: apps/v1
     kind: Deployment

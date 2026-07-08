@@ -372,6 +372,8 @@ monorepo_main() {
 # You must also have the helm-command.sh file in your $PATH if running older versions of Kustomize.
 ########################################################################################################################
 microservice_main() {
+  export PING_DIRECTORY_VERSION=${PING_DIRECTORY_VERSION:-"v2.2.0"}
+  envsubst '${PING_DIRECTORY_VERSION}' < kustomization.tmpl.yaml > kustomization.yaml
   eval "${KUSTOMIZE_EXECUTABLE} build --load-restrictor LoadRestrictionsNone ${HELM_FLAGS}"
 }
 
