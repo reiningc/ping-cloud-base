@@ -373,7 +373,7 @@ monorepo_main() {
 ########################################################################################################################
 microservice_main() {
   export PING_DIRECTORY_VERSION=${PING_DIRECTORY_VERSION:-"v2.2.0"}
-  envsubst '${PING_DIRECTORY_VERSION}' < kustomization.tmpl.yaml > kustomization.yaml
+  envsubst '${PING_DIRECTORY_VERSION}' < kustomization.yaml > kustomization.yaml.tmp && mv kustomization.yaml.tmp kustomization.yaml
   eval "${KUSTOMIZE_EXECUTABLE} build --load-restrictor LoadRestrictionsNone ${HELM_FLAGS}"
 }
 
