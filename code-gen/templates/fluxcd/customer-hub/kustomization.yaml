@@ -68,3 +68,5 @@ configMapGenerator:
       - env_vars
     options:
       disableNameSuffixHash: true
+  - name: p1as-versions
+    namespace: argocd
