@@ -70,3 +70,5 @@ configMapGenerator:
       disableNameSuffixHash: true
   - name: p1as-versions
     namespace: argocd
+    options:
+      disableNameSuffixHash: true
