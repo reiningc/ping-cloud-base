@@ -1576,6 +1576,9 @@ for ENV_OR_BRANCH in ${SUPPORTED_ENVIRONMENT_TYPES}; do
   for app_repo in ${PROFILE_REPO_MIRRORS[@]}; do
     # First try to get the branch from the profileBranch key if it exists
     app_repo_branch=$(yq e '.helmCharts[].valuesInline.profileBranch' ./templates/${app_repo}/region/kustomization.yaml)
+    if test "${app_repo}" = "p1as-pingdirectory"; then
+      app_repo_branch="v2.2.0"
+    fi
     # Otherwise, use the version key
     if [ "${app_repo_branch}" == "null" ]; then
       app_repo_branch=$(yq e '.helmCharts[].version' ./templates/${app_repo}/region/kustomization.yaml)
